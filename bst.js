@@ -1,6 +1,6 @@
 class Node {
-  constructor(data, left = null, right = null) {
-    this.data = data;
+  constructor(Data, left = null, right = null) {
+    this.data = Data;
     this.left = left;
     this.right = right;
   }
@@ -117,13 +117,8 @@ class BST {
 
 const bst = new BST();
 bst.add(4);
-bst.add(2);
-bst.add(6);
-bst.add(1);
-bst.add(3);
-bst.add(5);
 bst.add(7);
-bst.remove(10);
+bst.add(5);
 console.log(bst.FindMin());
 console.log(bst.findMax());
 bst.remove(7);
