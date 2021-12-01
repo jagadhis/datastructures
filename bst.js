@@ -1,6 +1,6 @@
 class Node {
-  constructor(Data, left = null, right = null) {
-    this.data = Data;
+  constructor(data, left = null, right = null) {
+    this.data = data;
     this.left = left;
     this.right = right;
   }
@@ -10,32 +10,32 @@ class BST {
   constructor() {
     this.root = null;
   }
-  add(Data) {
+  add(data) {
     const node = this.root;
     if (node === null) {
-      this.root = new Node(Data, node);
+      this.root = new Node(data, node);
       return;
     } else {
-      const searchTree = function (Node) {
-        if (Data < Node.Data) {
-          if (Node.left === null) {
-            Node.left = new Node(Data, node);
+      const searchTree = function (node) {
+        if (data < node.data) {
+          if (node.left === null) {
+            node.left = new Node(data);
             return;
-          } else if (Node.left !== null) {
-            return searchTree(Node.left);
+          } else if (node.left !== null) {
+            return searchTree(node.left);
           }
-        } else if (Data > Node.Data) {
-          if (Node.right === null) {
-            Node.right = new Node(Data, node);
+        } else if (data > node.data) {
+          if (node.right === null) {
+            node.right = new Node(data);
             return;
-          } else if (Node.right !== null) {
-            return searchTree(Node.right);
+          } else if (node.right !== null) {
+            return searchTree(node.right);
           }
         } else {
           return null;
         }
       };
-      return searchTree(Node);
+      return searchTree(node);
     }
   }
 
@@ -55,8 +55,8 @@ class BST {
   }
   find(data) {
     let current = this.root;
-    while (current.Data !== data) {
-      if (data < current.Data) {
+    while (current.data !== data) {
+      if (data < current.data) {
         current = current.left;
       } else {
         current = current.right;
@@ -67,13 +67,13 @@ class BST {
     }
     return current;
   }
-  isPresent(Data) {
+  isPresent(data) {
     let current = this.root;
     while (current) {
-      if (Data == current.Data) {
+      if (data == current.data) {
         return true;
       }
-      if (Data < current.Data) {
+      if (data < current.data) {
         current = current.left;
       } else {
         current = current.right;
@@ -81,46 +81,45 @@ class BST {
     }
     return false;
   }
-  remove(Data) {
-    const removeNode = function (Node, Data) {
-      if (Node == null) {
+  remove(data) {
+    const removeNode = function (node, data) {
+      if (node == null) {
         return null;
       }
-      if (Data == Node.Data) {
-        if (Node.left == null && Node.right == null) {
+      if (data == node.data) {
+        if (node.left == null && node.right == null) {
           return null;
         }
-        if (Node.left == null) {
-          return Node.right;
+        if (node.left == null) {
+          return node.right;
         }
-        if (Node.right == null) {
-          return Node.left;
+        if (node.right == null) {
+          return node.left;
         }
-        var Tempnode = Node.right;
+        var Tempnode = node.right;
         while (Tempnode.left !== null) {
           Tempnode = Tempnode.left;
         }
-        Node.Data = Tempnode.Data;
-        Node.right = removeNode(Node.right, Tempnode.Data);
-        return Node;
-      } else if (Data < Node.Data) {
-        Node.left = removeNode(Node.left, Data);
-        return Node;
+        node.data = Tempnode.data;
+        node.right = removeNode(node.right, Tempnode.data);
+        return node;
+      } else if (data < node.data) {
+        node.left = removeNode(node.left, data);
+        return node;
       } else {
-        Node.right = removeNode(Node.right, Data);
-        return Node;
+        node.right = removeNode(node.right, data);
+        return node;
       }
     };
-    this.root = removeNode(this.root, Data);
+    this.root = removeNode(this.root, data);
   }
 }
 
 const bst = new BST();
 bst.add(4);
 bst.add(7);
-bst.add(5);
+bst.add(10);
+console.log(bst.findMax());
 console.log(bst.FindMin());
-console.log(bst.findMax());
 bst.remove(7);
-console.log(bst.findMax());
-console.log(bst.isPresent(5));
+console.log(bst.isPresent(7));
